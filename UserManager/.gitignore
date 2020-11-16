@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Misc ###
+coverage/
+node_modules/
+tmp/
+npm-debug.log*
+yarn-error.log*
+.ng_pkg_build/
+.ng-dev.log
+.ng-dev.user*
+.husky/_
