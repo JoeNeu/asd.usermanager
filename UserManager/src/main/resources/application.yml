@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: UserManager
+  jpa:
+    database: H2
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: false
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    platform: postgres
+    url: jdbc:h2:mem:testdb
+    username: ${DB_USER:admin}
+    password: ${DB_PASSWORD:admin}
+    driverClassName: org.h2.Driver
