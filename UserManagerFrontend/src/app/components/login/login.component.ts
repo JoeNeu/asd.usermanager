@@ -26,6 +26,7 @@ export class LoginComponent {
   login() {
     this.usermanagerService.login(this.usernameControl.value, this.passwordControl.value)
       .pipe(catchError(_ => {
+        // subject to change .... hopefully
         this.usermanagerService.isLoggedIn.next(true);
         this.router.navigate(['/main']);
         return EMPTY;

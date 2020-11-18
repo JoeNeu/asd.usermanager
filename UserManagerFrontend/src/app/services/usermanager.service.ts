@@ -24,4 +24,23 @@ export class UsermanagerService {
     });
   }
 
+  logout() {
+    return this.http.post(this.backendUrl + '/logout', {
+      // account details
+    });
+  }
+
+  deleteAccount() {
+    return this.http.post(this.backendUrl + '/delete', {
+      // account details
+    });
+  }
+
+  changePassword() {
+    return this.http.post(this.backendUrl + '/password', {
+      // account details + password
+    });
+  }
+
+
 }
