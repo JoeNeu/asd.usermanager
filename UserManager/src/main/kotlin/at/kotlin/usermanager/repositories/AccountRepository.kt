@@ -1,10 +1,13 @@
 package at.kotlin.usermanager.repositories
 
 import at.kotlin.usermanager.entities.Account
-import org.springframework.data.repository.CrudRepository
-import java.util.*
+import org.springframework.stereotype.Repository
 
-interface AccountRepository : CrudRepository<Account, String> {
-
-    fun findByuuid(address: String): Optional<Account>
+@Repository
+class AccountRepository(
+        val database: IAccountRepository)
+{
+    fun add(account: Account) {
+        database.save(account)
+    }
 }

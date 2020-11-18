@@ -1,12 +1,16 @@
 package at.kotlin.usermanager.entities
 
+import org.hibernate.annotations.GenericGenerator
+import java.util.*
 import javax.persistence.*
 
 @Entity
 data class Account (
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var uuid: String?,
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    var id: UUID?,
 
     @Column(nullable = false)
     var username: String?,
