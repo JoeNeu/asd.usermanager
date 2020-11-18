@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-8 offset-2">
+    <label>Vorname</label>
+    <input type="text"
+           [formControl]="registerGroup.get('vorname')">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <label>Nachname</label>
+    <input type="text"
+           [formControl]="registerGroup.get('nachname')">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <label>Username</label>
+    <input type="text"
+           [formControl]="registerGroup.get('username')">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <label>Passwort</label>
+    <input type="password"
+           [formControl]="registerGroup.get('passwort')">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <button class="btn btn-primary"
+            [disabled]="registerGroup.invalid"
+            (click)="register()">
+      Registieren
+    </button>
+  </div>
+</div>
