@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-8 offset-2">
+    <label>Username</label>
+    <input type="text"
+           [formControl]="usernameControl">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <label>Passwort</label>
+    <input type="password"
+           [formControl]="passwordControl">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <button class="btn btn-primary"
+            [disabled]="isBlank()"
+            (click)="login()">
+      Login
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <a routerLink="/register">
+      Registrieren
+    </a>
+  </div>
+</div>
