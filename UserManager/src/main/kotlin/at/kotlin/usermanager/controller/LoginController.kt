@@ -18,7 +18,7 @@ class LoginController (
             @RequestHeader("username") username: String,
             @RequestHeader("password") password: String
     ) {
-        if(!accountService.login(username, password)) {
+        if(!accountService.login(Account(null, username, password))) {
 
         }
     }
