@@ -6,5 +6,4 @@ import java.util.*
 
 interface IAccountRepository : JpaRepository<Account, UUID> {
 
-    fun findByuuid(address: String): Optional<Account>
 }

@@ -2,24 +2,25 @@ package at.kotlin.usermanager.controller
 
 import at.kotlin.usermanager.entities.Account
 import at.kotlin.usermanager.services.AccountService
-import org.springframework.web.bind.annotation.*
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-
+import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/auth")
-class LoginController (
+@RequestMapping("/account")
+class AccountController(
         val accountService: AccountService
 ) {
     @PostMapping
-    fun login(
+    fun createUser(
             @RequestHeader("username") username: String,
             @RequestHeader("password") password: String
     ) {
-        if(!accountService.login(username, password)) {
+        accountService.login(Account(null, username, password))
+    }
 
-        }
+    @GetMapping
+    fun findAll(): ResponseEntity<List<Account>> {
+        val accounts = accountService.findAll()
+        return ResponseEntity.ok().body(accounts)
     }
 }
