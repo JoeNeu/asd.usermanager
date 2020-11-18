@@ -13,8 +13,14 @@ data class Account (
     var id: UUID?,
 
     @Column(nullable = false)
-    var username: String?,
+    var username: String,
 
     @Column(nullable = false)
-    var password: String?
+    var password: String,
+
+    @Column(nullable = false)
+    var firstname: String,
+
+    @Column(nullable = false)
+    var lastname: String
 )

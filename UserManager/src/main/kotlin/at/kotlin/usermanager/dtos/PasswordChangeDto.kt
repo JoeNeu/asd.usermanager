@@ -1,6 +1,6 @@
 package at.kotlin.usermanager.dtos
 
-data class LoginObject (
+data class PasswordChangeDto (
         val username: String,
-        val password: String
+        val newPassword: String
 )

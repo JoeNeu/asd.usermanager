@@ -1,5 +1,8 @@
 package at.kotlin.usermanager.controller
 
+import at.kotlin.usermanager.dtos.AccountDto
+import at.kotlin.usermanager.dtos.LoginDto
+import at.kotlin.usermanager.dtos.PasswordChangeDto
 import at.kotlin.usermanager.entities.Account
 import at.kotlin.usermanager.services.AccountService
 import org.springframework.http.HttpStatus
@@ -13,26 +16,46 @@ class AccountController(
         val accountService: AccountService
 ) {
     @PostMapping
-    fun createUser(
-            @RequestHeader("username") username: String,
-            @RequestHeader("password") password: String
-    ) {
-        accountService.login(Account(null, username, password))
+    fun createAccount(@RequestBody account: AccountDto): ResponseEntity<*> {
+        return try {
+            accountService.createAccount(account)
+            ResponseEntity.ok().body("")
+        } catch (e: Exception) {
+            ResponseEntity("Username already exists", HttpStatus.BAD_REQUEST)
+        }
     }
 
-    @GetMapping
+    @DeleteMapping
+    fun deleteAccount(
+            @RequestBody loginDto: LoginDto
+    ) : ResponseEntity<*> {
+        if(!accountService.login(loginDto)) {
+            throw ResponseStatusException(HttpStatus.FORBIDDEN, "username or password not correct")
+        }
+        accountService.deleteAccount(loginDto)
+        return ResponseEntity.ok().body("")
+    }
+
+    @GetMapping("/all")
     fun findAll(): ResponseEntity<List<Account>> {
         val accounts = accountService.findAll()
         return ResponseEntity.ok().body(accounts)
     }
 
     @PostMapping("/login")
-    fun login(
-            @RequestHeader("username") username: String,
-            @RequestHeader("password") password: String
-    ) : ResponseEntity<*> {
-        if(!accountService.login(Account(null, username, password))) {
-            throw ResponseStatusException(HttpStatus.FORBIDDEN, "username oder password nicht korrekt")
+    fun login(@RequestBody loginDto: LoginDto) : ResponseEntity<*> {
+        if(!accountService.login(loginDto)) {
+            throw ResponseStatusException(HttpStatus.FORBIDDEN, "username or password not correct")
         }
+        val account = accountService.getAccountDtoByUsername(loginDto.username)
+        return ResponseEntity.ok().body(account)
+    }
+
+    @PostMapping("/password")
+    fun changePassword(
+            @RequestBody passwordChangeDto: PasswordChangeDto,
+    ) : ResponseEntity<*> {
+        accountService.changePassword(passwordChangeDto)
+        return ResponseEntity.ok().body("")
     }
 }
