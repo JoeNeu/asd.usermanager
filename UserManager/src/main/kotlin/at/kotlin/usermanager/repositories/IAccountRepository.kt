@@ -7,5 +7,6 @@ import java.util.*
 interface IAccountRepository : JpaRepository<Account, UUID> {
 
     fun findAccountByUsername(username: String): Account?
+
     fun deleteAccountByUsername(username: String)
 }

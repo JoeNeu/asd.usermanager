@@ -12,9 +12,8 @@ import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("/account")
-class AccountController(
-        val accountService: AccountService
-) {
+class AccountController(val accountService: AccountService) {
+
     @PostMapping
     fun createAccount(@RequestBody account: AccountDto): ResponseEntity<*> {
         return try {
@@ -26,14 +25,12 @@ class AccountController(
     }
 
     @DeleteMapping
-    fun deleteAccount(
-            @RequestBody loginDto: LoginDto
-    ) : ResponseEntity<*> {
-        if(!accountService.login(loginDto)) {
-            throw ResponseStatusException(HttpStatus.FORBIDDEN, "username or password not correct")
+    fun deleteAccount(@RequestBody loginDto: LoginDto): ResponseEntity<*> {
+        if (accountService.login(loginDto)) {
+            accountService.deleteAccount(loginDto)
+            return ResponseEntity.ok().body("")
         }
-        accountService.deleteAccount(loginDto)
-        return ResponseEntity.ok().body("")
+        throw ResponseStatusException(HttpStatus.FORBIDDEN, "username or password not correct")
     }
 
     @GetMapping("/all")
@@ -43,18 +40,16 @@ class AccountController(
     }
 
     @PostMapping("/login")
-    fun login(@RequestBody loginDto: LoginDto) : ResponseEntity<*> {
-        if(!accountService.login(loginDto)) {
-            throw ResponseStatusException(HttpStatus.FORBIDDEN, "username or password not correct")
+    fun login(@RequestBody loginDto: LoginDto): ResponseEntity<*> {
+        if (accountService.login(loginDto)) {
+            val account = accountService.getAccountDtoByUsername(loginDto.username)
+            return ResponseEntity.ok().body(account)
         }
-        val account = accountService.getAccountDtoByUsername(loginDto.username)
-        return ResponseEntity.ok().body(account)
+        throw ResponseStatusException(HttpStatus.FORBIDDEN, "username or password not correct")
     }
 
     @PostMapping("/password")
-    fun changePassword(
-            @RequestBody passwordChangeDto: PasswordChangeDto,
-    ) : ResponseEntity<*> {
+    fun changePassword(@RequestBody passwordChangeDto: PasswordChangeDto): ResponseEntity<*> {
         accountService.changePassword(passwordChangeDto)
         return ResponseEntity.ok().body("")
     }

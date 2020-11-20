@@ -6,5 +6,6 @@ import at.kotlin.usermanager.dtos.LoginDto
 interface IAccountService {
 
     fun login(account: LoginDto): Boolean
+
     fun createAccount(account: AccountDto)
 }
