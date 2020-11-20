@@ -45,7 +45,7 @@ class AccountService(
     }
 
     override fun createAccount(accountDto: AccountDto) {
-        if (usernameExists(accountDto.username)) {
+        if (usernameAlreadyExists(accountDto.username)) {
             throw UsernameAlreadyExistsException()
         }
 
@@ -55,7 +55,7 @@ class AccountService(
         }
     }
 
-    fun usernameExists(username: String): Boolean
+    fun usernameAlreadyExists(username: String): Boolean
             = accountRepository.findAccountByUsername(username) != null
 
     override fun deleteAccount(loginDto: LoginDto) {
