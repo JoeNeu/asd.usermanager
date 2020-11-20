@@ -7,13 +7,13 @@ import at.kotlin.usermanager.entities.Account
 
 interface IAccountService {
 
-    fun login(account: LoginDto)
+    fun login(loginDto: LoginDto)
 
     fun changePassword(passwordChangeDto: PasswordChangeDto)
 
-    fun createAccount(account: AccountDto)
+    fun createAccount(accountDto: AccountDto)
 
-    fun deleteAccount(token: LoginDto)
+    fun deleteAccount(loginDto: LoginDto)
 
     fun findAll(): List<Account>
 

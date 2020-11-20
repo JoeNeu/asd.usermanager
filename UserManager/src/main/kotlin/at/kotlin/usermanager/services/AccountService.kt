@@ -21,8 +21,8 @@ class AccountService(
 
     val logger: Logger = LoggerFactory.getLogger(AccountService::class.java)
 
-    override fun login(account: LoginDto) {
-        if (!passwordCorrect(account.username, account.password)) {
+    override fun login(loginDto: LoginDto) {
+        if (!passwordCorrect(loginDto.username, loginDto.password)) {
             throw InvalidLoginCredentialsException()
         }
     }
@@ -39,15 +39,17 @@ class AccountService(
                 ?: throw NullPointerException()
 
         account.password = hash(passwordChangeDto.newPassword)
-        accountRepository.save(account)
+        accountRepository.save(account).also {
+            logger.info("Password changed successfully: $it")
+        }
     }
 
-    override fun createAccount(account: AccountDto) {
-        if (usernameExists(account.username)) {
+    override fun createAccount(accountDto: AccountDto) {
+        if (usernameExists(accountDto.username)) {
             throw UsernameAlreadyExistsException()
         }
 
-        val entity = accountMapper.mapToEntityAndHashPassword(account)
+        val entity = accountMapper.mapToEntityAndHashPassword(accountDto)
         accountRepository.save(entity).also {
             logger.info("New Account created: $it")
         }
@@ -56,8 +58,10 @@ class AccountService(
     fun usernameExists(username: String): Boolean
             = accountRepository.findAccountByUsername(username) != null
 
-    override fun deleteAccount(token: LoginDto) {
-        accountRepository.deleteAccountByUsername(token.username)
+    override fun deleteAccount(loginDto: LoginDto) {
+        accountRepository.deleteAccountByUsername(loginDto.username).also {
+            logger.info("Deleted Account with Username: ${loginDto.username}")
+        }
     }
 
     override fun findAll(): List<Account>
