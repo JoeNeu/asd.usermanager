@@ -3,6 +3,8 @@ package at.kotlin.usermanager.controller
 import at.kotlin.usermanager.dtos.AccountDto
 import at.kotlin.usermanager.dtos.LoginDto
 import at.kotlin.usermanager.dtos.PasswordChangeDto
+import at.kotlin.usermanager.dtos.UserDto
+import at.kotlin.usermanager.exceptions.BannedAccountException
 import at.kotlin.usermanager.exceptions.InvalidLoginCredentialsException
 import at.kotlin.usermanager.exceptions.UsernameAlreadyExistsException
 import at.kotlin.usermanager.services.AccountService
@@ -28,10 +30,9 @@ class AccountController(val accountService: AccountService) {
     }
 
     @PostMapping("/delete")
-    fun deleteAccount(@RequestBody loginDto: LoginDto): ResponseEntity<*> {
+    fun deleteAccount(@RequestBody userDto: UserDto): ResponseEntity<*> {
         return try {
-            accountService.login(loginDto)
-            accountService.deleteAccount(loginDto)
+            accountService.deleteAccount(userDto)
             ResponseEntity.ok().body("")
 
         } catch (e: InvalidLoginCredentialsException) {
@@ -59,7 +60,9 @@ class AccountController(val accountService: AccountService) {
             val user = accountService.getUserDtoByUsername(loginDto.username)
             ResponseEntity.ok().body(user)
 
-        } catch (e: InvalidLoginCredentialsException) {
+        } catch (e: BannedAccountException) {
+            ResponseEntity(e.message, HttpStatus.FORBIDDEN)
+        }catch (e: InvalidLoginCredentialsException) {
             ResponseEntity(e.message, HttpStatus.FORBIDDEN)
         } catch (e: Exception) {
             ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)

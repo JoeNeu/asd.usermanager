@@ -10,6 +10,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { MainComponent } from './components/main/main.component';
+import { ConfirmationComponent } from './components/dialogue/confirmation/confirmation.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -17,14 +20,20 @@ import { MainComponent } from './components/main/main.component';
     LoginComponent,
     RegisterComponent,
     ChangePasswordComponent,
-    MainComponent
+    MainComponent,
+    ConfirmationComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    ConfirmationComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

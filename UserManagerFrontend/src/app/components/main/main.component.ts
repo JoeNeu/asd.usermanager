@@ -3,8 +3,10 @@ import {AutoLogoutService} from '../../services/auto-logout.service';
 import {UsermanagerService} from '../../services/usermanager.service';
 import {Router} from '@angular/router';
 import {UserModel} from '../../models/user.model';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {BehaviorSubject, EMPTY, Subject} from 'rxjs';
+import {catchError, takeUntil} from 'rxjs/operators';
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmationComponent} from "../dialogue/confirmation/confirmation.component";
 
 
 @Component({
@@ -16,9 +18,12 @@ export class MainComponent implements OnInit, OnDestroy {
 
   currUser: UserModel;
   private unsubscribe$ = new Subject();
+  confirmed = new BehaviorSubject<boolean>(false);
 
-  constructor(private autoLogoutService: AutoLogoutService, private usermanagerService: UsermanagerService,
-              private router: Router) {
+  constructor(private autoLogoutService: AutoLogoutService,
+              private usermanagerService: UsermanagerService,
+              private router: Router,
+              private dialog: MatDialog) {
   }
 
 
@@ -37,7 +42,29 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   deleteAccount() {
-    this.usermanagerService.deleteAccount();
+    this.usermanagerService.deleteAccount().pipe(
+      catchError(err => {
+        console.error('Delete Account failed with message: ' + err.message)
+        return EMPTY;
+      }))
+      .subscribe(() => {
+        this.usermanagerService.isLoggedIn.next(false);
+        this.usermanagerService.currUser.next(null);
+        this.router.navigate(['']);
+      });
+  }
+
+  confirmDelete() {
+    this.dialog.open(ConfirmationComponent, {
+      height: '400px',
+      width: '600px',
+    }).afterClosed()
+      .subscribe(result => {
+        this.confirmed.next(result);
+        if (this.confirmed.value) {
+          this.deleteAccount();
+        }
+      });
   }
 
   logout() {
