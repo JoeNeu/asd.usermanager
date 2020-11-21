@@ -4,6 +4,7 @@ import {UsermanagerService} from '../../services/usermanager.service';
 import {catchError} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {Router} from '@angular/router';
+import {UserModel} from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -26,13 +27,13 @@ export class LoginComponent {
   login() {
     this.usermanagerService.login(this.usernameControl.value, this.passwordControl.value)
       .pipe(catchError(_ => {
-        // subject to change .... hopefully
-        this.usermanagerService.isLoggedIn.next(true);
-        this.router.navigate(['/main']);
+        this.usermanagerService.isLoggedIn.next(false);
+        this.router.navigate(['']);
         return EMPTY;
       }))
-      .subscribe(() => {
+      .subscribe((model: UserModel) => {
         this.usermanagerService.isLoggedIn.next(true);
+        this.usermanagerService.currUser.next(model);
         this.router.navigate(['/main']);
       });
   }

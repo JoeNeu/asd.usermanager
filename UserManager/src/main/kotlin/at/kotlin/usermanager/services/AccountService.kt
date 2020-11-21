@@ -3,6 +3,7 @@ package at.kotlin.usermanager.services
 import at.kotlin.usermanager.dtos.AccountDto
 import at.kotlin.usermanager.dtos.LoginDto
 import at.kotlin.usermanager.dtos.PasswordChangeDto
+import at.kotlin.usermanager.dtos.UserDto
 import at.kotlin.usermanager.entities.Account
 import at.kotlin.usermanager.exceptions.InvalidLoginCredentialsException
 import at.kotlin.usermanager.exceptions.UsernameAlreadyExistsException
@@ -67,7 +68,7 @@ class AccountService(
     override fun findAll(): List<Account>
             = accountRepository.findAll()
 
-    override fun getAccountDtoByUsername(username: String): AccountDto
+    override fun getUserDtoByUsername(username: String): UserDto
             = accountMapper.mapToDto(accountRepository.findAccountByUsername(username)
             ?: throw NullPointerException())
 }

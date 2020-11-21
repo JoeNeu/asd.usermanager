@@ -3,6 +3,7 @@ package at.kotlin.usermanager.services
 import at.kotlin.usermanager.dtos.AccountDto
 import at.kotlin.usermanager.dtos.LoginDto
 import at.kotlin.usermanager.dtos.PasswordChangeDto
+import at.kotlin.usermanager.dtos.UserDto
 import at.kotlin.usermanager.entities.Account
 
 interface IAccountService {
@@ -17,5 +18,5 @@ interface IAccountService {
 
     fun findAll(): List<Account>
 
-    fun getAccountDtoByUsername(username: String): AccountDto
+    fun getUserDtoByUsername(username: String): UserDto
 }

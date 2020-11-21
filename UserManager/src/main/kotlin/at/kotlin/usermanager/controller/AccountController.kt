@@ -27,7 +27,7 @@ class AccountController(val accountService: AccountService) {
         }
     }
 
-    @DeleteMapping
+    @PostMapping("/delete")
     fun deleteAccount(@RequestBody loginDto: LoginDto): ResponseEntity<*> {
         return try {
             accountService.login(loginDto)
@@ -56,8 +56,8 @@ class AccountController(val accountService: AccountService) {
     fun login(@RequestBody loginDto: LoginDto): ResponseEntity<*> {
         return try {
             accountService.login(loginDto)
-            val account = accountService.getAccountDtoByUsername(loginDto.username)
-            ResponseEntity.ok().body(account)
+            val user = accountService.getUserDtoByUsername(loginDto.username)
+            ResponseEntity.ok().body(user)
 
         } catch (e: InvalidLoginCredentialsException) {
             ResponseEntity(e.message, HttpStatus.FORBIDDEN)
