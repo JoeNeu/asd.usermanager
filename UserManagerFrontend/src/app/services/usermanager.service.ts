@@ -28,9 +28,6 @@ export class UsermanagerService {
 
   deleteAccount() {
     return this.http.post(this.backendUrl + '/delete', {
-      // username: this.currUser.getValue().username,
-      // firstname: this.currUser.getValue().firstname,
-      // lastname: this.currUser.getValue().lastname
       ...this.currUser.value
     });
   }

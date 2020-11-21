@@ -87,7 +87,6 @@ class AccountService(
         }
     }
 
-    @Transactional
     override fun createAccount(accountDto: AccountDto) {
         if (usernameAlreadyExists(accountDto.username)) {
             throw UsernameAlreadyExistsException()

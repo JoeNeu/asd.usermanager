@@ -39,3 +39,10 @@
     </button>
   </div>
 </div>
+
+<div class="row"
+     *ngIf="loginError.value">
+  <div class="col-8 offset-2">
+    <span>{{loginErrorMessage.value}}</span>
+  </div>
+</div>
