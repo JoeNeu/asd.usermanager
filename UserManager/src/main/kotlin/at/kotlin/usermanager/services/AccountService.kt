@@ -13,7 +13,7 @@ import at.kotlin.usermanager.mapper.AccountMapper
 import at.kotlin.usermanager.repositories.IAccountRepository
 import at.kotlin.usermanager.repositories.IBannedAccountRepository
 import at.kotlin.usermanager.utils.HashUtil.hash
-import at.kotlin.usermanager.utils.Unwrap.unwrap
+import at.kotlin.usermanager.utils.Unwrap.unwrapBannedAccount
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -38,14 +38,14 @@ class AccountService(
     }
 
     private fun resetLoginTries(username: String) {
-        bannedAccountRepository.findById(username).unwrap()
+        bannedAccountRepository.findById(username).unwrapBannedAccount()
                 ?.let { account: BannedAccount -> {
                     bannedAccountRepository.delete(account)
                 }}
     }
 
     private fun accountBanned(username: String): Boolean {
-        if(bannedAccountRepository.findById(username).unwrap()
+        if(bannedAccountRepository.findById(username).unwrapBannedAccount()
                 ?.let { account: BannedAccount -> account.tries >= 3 } == true) {
             throw BannedAccountException()
         }
@@ -59,7 +59,7 @@ class AccountService(
                 bannedAccountRepository.save(bannedAccount)
             }
             true -> {
-                val bannedAccount: BannedAccount? = bannedAccountRepository.findById(username).unwrap()
+                val bannedAccount: BannedAccount? = bannedAccountRepository.findById(username).unwrapBannedAccount()
                 bannedAccount!!.tries += 1
                 bannedAccountRepository.save(bannedAccount!!)
             }

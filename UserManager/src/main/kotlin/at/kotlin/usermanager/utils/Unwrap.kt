@@ -4,5 +4,5 @@ import java.util.*
 
 object Unwrap {
 
-    fun <BannedAccount> Optional<BannedAccount>.unwrap(): BannedAccount? = orElse(null)
+    fun <BannedAccount> Optional<BannedAccount>.unwrapBannedAccount(): BannedAccount? = orElse(null)
 }
