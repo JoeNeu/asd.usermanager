@@ -37,14 +37,15 @@ class AccountService(
         }
     }
 
-    private fun resetLoginTries(username: String) {
+    @Transactional
+    fun resetLoginTries(username: String) {
         bannedAccountRepository.findById(username).unwrapBannedAccount()
                 ?.let { account: BannedAccount -> {
                     bannedAccountRepository.delete(account)
                 }}
     }
 
-    private fun accountBanned(username: String): Boolean {
+    fun accountBanned(username: String): Boolean {
         if(bannedAccountRepository.findById(username).unwrapBannedAccount()
                 ?.let { account: BannedAccount -> account.tries >= 3 } == true) {
             throw BannedAccountException()
@@ -52,7 +53,8 @@ class AccountService(
         return false
     }
 
-    private fun incrementLoginTries(username: String) {
+    @Transactional
+    fun incrementLoginTries(username: String) {
         when (bannedAccountRepository.findById(username).isPresent) {
             false -> {
                 val bannedAccount = BannedAccount(username, 1)
