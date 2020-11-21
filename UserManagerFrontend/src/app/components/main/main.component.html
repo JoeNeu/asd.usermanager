@@ -1,31 +1,36 @@
-<div class="row">
-  <div class="col-6 offset-3" *ngIf="currUser">
-    <label>Hallo {{currUser.firstname}} {{currUser.lastname}}!</label>
-  </div>
-</div>
+<mat-card>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-6 offset-3" *ngIf="currUser">
+        <label>Hallo {{currUser.firstname}} {{currUser.lastname}}!</label>
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-8 offset-2">
-    <a routerLink="/change-password">
-      Passwort ändern
-    </a>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <button class="btn btn-primary"
+                (click)="passwordChange()">
+          Passwort ändern
+        </button>
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-8 offset-2">
-    <button class="btn btn-primary"
-            (click)="confirmDelete()">
-      delete Account
-    </button>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <button class="btn btn-primary"
+                (click)="confirmDelete()">
+          Account löschen
+        </button>
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-8 offset-2">
-    <button class="btn btn-primary"
-            (click)="logout()">
-      Logout
-    </button>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <button class="btn btn-primary"
+                (click)="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

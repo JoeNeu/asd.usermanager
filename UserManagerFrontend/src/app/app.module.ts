@@ -13,6 +13,7 @@ import { MainComponent } from './components/main/main.component';
 import { ConfirmationComponent } from './components/dialogue/confirmation/confirmation.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   entryComponents: [
     ConfirmationComponent

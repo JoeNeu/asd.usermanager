@@ -67,6 +67,10 @@ export class MainComponent implements OnInit, OnDestroy {
       });
   }
 
+  passwordChange() {
+    this.router.navigate(['/change-password'])
+  }
+
   logout() {
     this.usermanagerService.isLoggedIn.next(false);
     this.router.navigate(['']);

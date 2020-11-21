@@ -1,48 +1,53 @@
-<div class="row">
-  <div class="col-8 offset-2">
-    <label>Vorname</label>
-    <input type="text"
-           [formControl]="registerGroup.get('firstname')">
-  </div>
-</div>
+<mat-card>
+  <mat-card-content>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <label>Vorname</label>
+        <input type="text"
+               [formControl]="registerGroup.get('firstname')">
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-8 offset-2">
-    <label>Nachname</label>
-    <input type="text"
-           [formControl]="registerGroup.get('lastname')">
-  </div>
-</div>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <label>Nachname</label>
+        <input type="text"
+               [formControl]="registerGroup.get('lastname')">
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-8 offset-2">
-    <label>Username</label>
-    <input type="text"
-           [formControl]="registerGroup.get('username')">
-  </div>
-</div>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <label>Username</label>
+        <input type="text"
+               [formControl]="registerGroup.get('username')">
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-8 offset-2">
-    <label>Passwort</label>
-    <input type="password"
-           [formControl]="registerGroup.get('password')">
-  </div>
-</div>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <label>Passwort</label>
+        <input type="password"
+               [formControl]="registerGroup.get('password')">
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-8 offset-2">
-    <button class="btn btn-primary"
-            [disabled]="registerGroup.invalid"
-            (click)="register()">
-      Registieren
-    </button>
-  </div>
-</div>
+    <div class="row"
+         *ngIf="loginError.value">
+      <div class="col-8 offset-2 err">
+        <span>{{loginErrorMessage.value}}</span>
+      </div>
+    </div>
 
-<div class="row"
-     *ngIf="loginError.value">
-  <div class="col-8 offset-2">
-    <span>{{loginErrorMessage.value}}</span>
-  </div>
-</div>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <button class="btn btn-primary"
+                [disabled]="registerGroup.invalid"
+                (click)="register()">
+          Registieren
+        </button>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

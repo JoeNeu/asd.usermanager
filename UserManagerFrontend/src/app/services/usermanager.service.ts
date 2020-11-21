@@ -29,6 +29,8 @@ export class UsermanagerService {
   deleteAccount() {
     return this.http.post(this.backendUrl + '/delete', {
       ...this.currUser.value
+    }, {
+      headers: this.commonHttpHeaders.append('token', this.currUser.value.token)
     });
   }
 
@@ -36,6 +38,8 @@ export class UsermanagerService {
     return this.http.post(this.backendUrl + '/password', {
       username: this.currUser.getValue().username,
       newPassword
+    }, {
+      headers: this.commonHttpHeaders.append('token', this.currUser.value.token)
     });
   }
 

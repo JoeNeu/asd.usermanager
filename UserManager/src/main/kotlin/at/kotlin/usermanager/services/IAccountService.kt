@@ -19,4 +19,6 @@ interface IAccountService {
     fun findAll(): List<Account>
 
     fun getUserDtoByUsername(username: String): UserDto
+
+    fun validateToken(token: String, username: String)
 }

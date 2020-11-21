@@ -1,1 +1,37 @@
 @import "~bootstrap/scss/bootstrap";
+.mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+.mat-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-form-field {
+  display: block;
+}
+
+.btn {
+  margin-top: 30px;
+  color: blueviolet;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  color: azure;
+  margin-bottom: 2rem;
+}
+
+.btn-primary:disabled {
+  background-color: dimgray;
+  border-color: aliceblue;
+}
+
+.err {
+  color: red;
+}

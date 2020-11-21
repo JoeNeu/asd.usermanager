@@ -8,13 +8,17 @@ import at.kotlin.usermanager.exceptions.BannedAccountException
 import at.kotlin.usermanager.exceptions.InvalidLoginCredentialsException
 import at.kotlin.usermanager.exceptions.UsernameAlreadyExistsException
 import at.kotlin.usermanager.services.AccountService
+import at.kotlin.usermanager.services.JwtTokenGenerator
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/account")
-class AccountController(val accountService: AccountService) {
+class AccountController(
+        val accountService: AccountService,
+        val jwtTokenGenerator: JwtTokenGenerator
+) {
 
     @PostMapping
     fun createAccount(@RequestBody account: AccountDto): ResponseEntity<*> {
@@ -30,8 +34,12 @@ class AccountController(val accountService: AccountService) {
     }
 
     @PostMapping("/delete")
-    fun deleteAccount(@RequestBody userDto: UserDto): ResponseEntity<*> {
+    fun deleteAccount(
+            @RequestHeader("token") token: String,
+            @RequestBody userDto: UserDto
+    ): ResponseEntity<*> {
         return try {
+            accountService.validateToken(token, userDto.username)
             accountService.deleteAccount(userDto)
             ResponseEntity.ok().body("")
 
@@ -70,8 +78,12 @@ class AccountController(val accountService: AccountService) {
     }
 
     @PostMapping("/password")
-    fun changePassword(@RequestBody passwordChangeDto: PasswordChangeDto): ResponseEntity<*> {
+    fun changePassword(
+            @RequestHeader("token") token: String,
+            @RequestBody passwordChangeDto: PasswordChangeDto
+    ): ResponseEntity<*> {
         return try {
+            accountService.validateToken(token, passwordChangeDto.username)
             accountService.changePassword(passwordChangeDto)
             ResponseEntity.ok().body("")
 

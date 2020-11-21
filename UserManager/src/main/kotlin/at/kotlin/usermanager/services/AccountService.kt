@@ -8,6 +8,7 @@ import at.kotlin.usermanager.entities.Account
 import at.kotlin.usermanager.entities.BannedAccount
 import at.kotlin.usermanager.exceptions.BannedAccountException
 import at.kotlin.usermanager.exceptions.InvalidLoginCredentialsException
+import at.kotlin.usermanager.exceptions.TokenNotValidException
 import at.kotlin.usermanager.exceptions.UsernameAlreadyExistsException
 import at.kotlin.usermanager.mapper.AccountMapper
 import at.kotlin.usermanager.repositories.IAccountRepository
@@ -18,12 +19,14 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 class AccountService(
         val accountRepository: IAccountRepository,
         val bannedAccountRepository: IBannedAccountRepository,
-        val accountMapper: AccountMapper
+        val accountMapper: AccountMapper,
+        val jwtTokenGenerator: JwtTokenGenerator
 ) : IAccountService {
 
     val logger: Logger = LoggerFactory.getLogger(AccountService::class.java)
@@ -75,7 +78,6 @@ class AccountService(
         }
     }
 
-
     @Transactional
     override fun changePassword(passwordChangeDto: PasswordChangeDto) {
         val account = accountRepository.findAccountByUsername(passwordChangeDto.username)
@@ -109,6 +111,13 @@ class AccountService(
 
     override fun findAll(): List<Account> = accountRepository.findAll()
 
-    override fun getUserDtoByUsername(username: String): UserDto = accountMapper.mapToDto(accountRepository.findAccountByUsername(username)
-            ?: throw NullPointerException())
+    override fun getUserDtoByUsername(username: String): UserDto {
+        return accountMapper.mapToDto(accountRepository.findAccountByUsername(username)?: throw NullPointerException())
+    }
+
+    override fun validateToken(token: String, username: String) {
+        val jwt = jwtTokenGenerator.recoverJWT(token)
+        val uuid = accountRepository.findAccountByUsername(username).let { account -> account!!.id.toString() }
+        if(jwt.isExpired() || jwt.subject != uuid) throw TokenNotValidException()
+    }
 }

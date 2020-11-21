@@ -1,4 +1,4 @@
 package at.kotlin.usermanager.exceptions
 
 class UsernameAlreadyExistsException
-    : Exception("Username already exists")
+    : Exception("Username existiert bereits")
