@@ -15,11 +15,7 @@ export class ConfirmationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  confirmationAllowed() {
-    this.dialog.close(true);
-  }
-
-  confirmationDenied() {
-    this.dialog.close(false);
+  confirmation(answer: boolean) {
+    this.dialog.close(answer);
   }
 }

@@ -20,18 +20,28 @@
 
 .btn {
   margin-top: 20px;
-  color: blueviolet;
-  margin-bottom: 2rem;
+  color: white;
 }
 
 .btn-primary {
-  color: azure;
+  color: white;
+  background-color: cornflowerblue;
   margin-bottom: 2rem;
 }
 
 .btn-primary:disabled {
   background-color: dimgray;
   border-color: aliceblue;
+}
+
+.btn-basic {
+  background-color: #acaea9;
+  margin-bottom: 2rem;
+}
+
+.btn-danger {
+  background-color: #ff6866;
+  margin-bottom: 2rem;
 }
 
 .err {

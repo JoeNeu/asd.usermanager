@@ -14,14 +14,10 @@ class AccountMapper(
 ) {
 
     fun mapToEntityAndHashPassword(accountDto: AccountDto): Account {
-        return Account(null, accountDto.username, hash(accountDto.password), accountDto.firstname, accountDto.lastname)
+        return Account(id = null, accountDto.username, hash(accountDto.password), accountDto.firstname, accountDto.lastname)
     }
 
-    fun mapToDto(account: Account): UserDto {
-        return UserDto(account.username, account.firstname, account.lastname, generateJwt(account.id!!))
-    }
-
-    fun generateJwt(uuid: UUID): String {
-        return jwtTokenGenerator.buildJwt(uuid)
+    fun mapToDtoAndGenerateJwt(account: Account): UserDto {
+        return UserDto(account.username, account.firstname, account.lastname, jwtTokenGenerator.buildJwt(account.id!!))
     }
 }

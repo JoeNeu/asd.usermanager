@@ -1,15 +1,16 @@
+<mat-card>
+    <h5>
+      Wollen Sie den Account wirklich löschen?
+    </h5>
+    <div>
+      <button class="btn btn-danger" (click)="confirmation(true)">
+        Zustimmen
+      </button>
+    </div>
 
-<label>
-  Wollen Sie den Account wirklich löschen?
-</label>
-<div>
-  <button class="btn btn-primary" (click)="confirmationAllowed()">
-    Zustimmen
-  </button>
-</div>
-
-<div>
-  <button class="btn btn-warning" (click)="confirmationDenied()">
-    Abbrechen
-  </button>
-</div>
+    <div>
+      <button class="btn btn-basic" (click)="confirmation(false)">
+        Abbrechen
+      </button>
+    </div>
+</mat-card>

@@ -19,7 +19,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
 class AccountService(
@@ -112,7 +111,7 @@ class AccountService(
     override fun findAll(): List<Account> = accountRepository.findAll()
 
     override fun getUserDtoByUsername(username: String): UserDto {
-        return accountMapper.mapToDto(accountRepository.findAccountByUsername(username)?: throw NullPointerException())
+        return accountMapper.mapToDtoAndGenerateJwt(accountRepository.findAccountByUsername(username)?: throw NullPointerException())
     }
 
     override fun validateToken(token: String, username: String) {
