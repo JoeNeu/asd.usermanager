@@ -1,4 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 .mat-card {
   max-width: 400px;
   margin: 2em auto;
@@ -17,7 +19,7 @@
 }
 
 .btn {
-  margin-top: 30px;
+  margin-top: 20px;
   color: blueviolet;
   margin-bottom: 2rem;
 }

@@ -56,8 +56,10 @@ export class MainComponent implements OnInit, OnDestroy {
 
   confirmDelete() {
     this.dialog.open(ConfirmationComponent, {
-      height: '400px',
-      width: '600px',
+      height: '300px',
+      width: '400px',
+      autoFocus: true,
+      hasBackdrop: true
     }).afterClosed()
       .subscribe(result => {
         this.confirmed.next(result);
