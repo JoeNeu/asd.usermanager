@@ -15,7 +15,9 @@ https://maven.apache.org/download.cgi
 
     npm i @angular/cli
 
-    npm i inside /UserManagerFrontend
+    inside /UserManagerFrontend
+    
+    npm i 
 
     npm run start
     
