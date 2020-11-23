@@ -13,7 +13,9 @@ https://maven.apache.org/download.cgi
 
 ### Angular Frontend
 
-    npm install
+    npm i @angular/cli
+
+    npm i inside /UserManagerFrontend
 
     npm run start
     
