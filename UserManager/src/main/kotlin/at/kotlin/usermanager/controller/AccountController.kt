@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/account")
 class AccountController(
-        val accountService: AccountService,
-        val jwtTokenGenerator: JwtTokenGenerator
+        val accountService: AccountService
 ) {
 
     @PostMapping
@@ -70,7 +69,7 @@ class AccountController(
 
         } catch (e: BannedAccountException) {
             ResponseEntity(e.message, HttpStatus.FORBIDDEN)
-        }catch (e: InvalidLoginCredentialsException) {
+        } catch (e: InvalidLoginCredentialsException) {
             ResponseEntity(e.message, HttpStatus.FORBIDDEN)
         } catch (e: Exception) {
             ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
