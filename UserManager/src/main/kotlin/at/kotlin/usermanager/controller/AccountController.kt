@@ -48,17 +48,6 @@ class AccountController(
         }
     }
 
-    @GetMapping("/all")
-    fun findAll(): ResponseEntity<*> {
-        return try {
-            val accounts = accountService.findAll()
-            ResponseEntity.ok().body(accounts)
-
-        } catch (e: Exception) {
-            ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
-        }
-    }
-
     @PostMapping("/login")
     fun login(@RequestBody loginDto: LoginDto): ResponseEntity<*> {
         return try {
