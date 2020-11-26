@@ -6,7 +6,6 @@ import at.kotlin.usermanager.entities.Account
 import at.kotlin.usermanager.services.JwtTokenGenerator
 import at.kotlin.usermanager.utils.HashUtil.hash
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class AccountMapper(

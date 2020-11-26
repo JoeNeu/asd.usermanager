@@ -14,7 +14,7 @@ interface IAccountService {
 
     fun createAccount(accountDto: AccountDto)
 
-    fun deleteAccount(loginDto: UserDto)
+    fun deleteAccount(userDto: UserDto)
 
     fun findAll(): List<Account>
 

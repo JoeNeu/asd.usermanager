@@ -111,12 +111,13 @@ class AccountService(
     override fun findAll(): List<Account> = accountRepository.findAll()
 
     override fun getUserDtoByUsername(username: String): UserDto {
-        return accountMapper.mapToDtoAndGenerateJwt(accountRepository.findAccountByUsername(username)?: throw NullPointerException())
+        return accountMapper.mapToDtoAndGenerateJwt(accountRepository.findAccountByUsername(username)
+                ?: throw NullPointerException())
     }
 
     override fun validateToken(token: String, username: String) {
         val jwt = jwtTokenGenerator.recoverJWT(token)
         val uuid = accountRepository.findAccountByUsername(username).let { account -> account!!.id.toString() }
-        if(jwt.isExpired() || jwt.subject != uuid) throw TokenNotValidException()
+        if(jwt.isExpired || jwt.subject != uuid) throw TokenNotValidException()
     }
 }
