@@ -6,6 +6,7 @@ import at.kotlin.usermanager.dtos.PasswordChangeDto
 import at.kotlin.usermanager.dtos.UserDto
 import at.kotlin.usermanager.exceptions.BannedAccountException
 import at.kotlin.usermanager.exceptions.InvalidLoginCredentialsException
+import at.kotlin.usermanager.exceptions.TokenNotValidException
 import at.kotlin.usermanager.exceptions.UsernameAlreadyExistsException
 import at.kotlin.usermanager.services.AccountService
 import org.springframework.http.HttpStatus
@@ -41,7 +42,7 @@ class AccountController(
             accountService.deleteAccount(userDto)
             ResponseEntity.ok().body("")
 
-        } catch (e: InvalidLoginCredentialsException) {
+        } catch (e: TokenNotValidException) {
             ResponseEntity(e.message, HttpStatus.FORBIDDEN)
         } catch (e: Exception) {
             ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
@@ -74,6 +75,8 @@ class AccountController(
             accountService.changePassword(passwordChangeDto)
             ResponseEntity.ok().body("")
 
+        } catch (e: TokenNotValidException) {
+            ResponseEntity(e.message, HttpStatus.FORBIDDEN)
         } catch (e: Exception) {
             ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
