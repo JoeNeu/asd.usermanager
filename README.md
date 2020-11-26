@@ -28,7 +28,7 @@ https://maven.apache.org/download.cgi
     POST    /account            create  Account		
     	Request: Account-Object (username, password, firstname, lastname)
     	Response: OK(200), Bad Request(400) - if username already exists, Internal Server error(500)
-    POST  /account/delete            delete  Account
+    POST  	/account/delete            delete  Account
     	Request: User-Object (token, username, firstname, lastname)
     	Response: OK(200), Forbidden(403) - on wrong token, Internal Server error(500)
     POST    /account/login      login   Account 
