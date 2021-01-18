@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/JoeNeu/asd.usermanager.svg?branch=master)](https://travis-ci.com/JoeNeu/asd.usermanager)
-
+![Docker Build Status](https://img.shields.io/docker/build/joeneu/usermanager)
 # User Manager
 
 ### Spring Boot Kotlin Backend
