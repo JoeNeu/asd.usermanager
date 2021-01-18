@@ -1,4 +1,4 @@
-before_script: cd UserManager
+before_install: cd UserManager
 #setup java
 language: java
 #we add the java development kit (jdk)
