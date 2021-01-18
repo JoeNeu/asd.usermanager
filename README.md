@@ -1,3 +1,5 @@
+[![Build Status](https://travisci.com/JoeNeu/asd.usermanager.svg)](https://travis-ci.com/JoeNeu/asd.usermanager)
+
 # User Manager
 
 ### Spring Boot Kotlin Backend
