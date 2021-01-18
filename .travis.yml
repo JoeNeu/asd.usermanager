@@ -1,0 +1,5 @@
+#setup java
+language: java
+#we add the java development kit (jdk)
+jdk:
+- openjdk11
