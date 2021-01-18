@@ -1,4 +1,6 @@
-before_install: cd UserManager
+before_install:
+  - cd UserManager
+  - chmod +x mvnw
 #setup java
 language: java
 #we add the java development kit (jdk)
