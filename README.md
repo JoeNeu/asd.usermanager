@@ -1,4 +1,6 @@
-[![Build Status](https://travisci.com/JoeNeu/asd.usermanager.svg)](https://travis-ci.com/JoeNeu/asd.usermanager)
+  <a href="https://travis-ci.com/JoeNeu/asd.usermanager.svg?branch=master">
+    <img src="https://travis-ci.com/JoeNeu/asd.usermanager.svg?branch=master" alt="Build Status" />
+  </a>
 
 # User Manager
 
